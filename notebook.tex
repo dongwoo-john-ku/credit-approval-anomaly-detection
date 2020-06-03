@@ -1,0 +1,2073 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{data\_mining}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{data-mining-homework}{%
+\section{Data Mining Homework}\label{data-mining-homework}}
+
+    \hypertarget{credit-approval-uxc790uxb8ccuxc5d0-uxb300uxd558uxc5ec-uxc785uxb825-uxd2b9uxc9d5-uxbc0f-uxae30uxacc4uxd559uxc2b5uxbaa8uxb378uxc758-uxd568uxc218uxc801uxc778-uxad6cuxc870uxb97c-uxc124uxba85uxd55cuxb2e4.-10-points}{%
+\subsection{1. credit approval 자료에 대하여 입력 특징 및 기계학습모델의
+함수적인 구조를 설명한다. (10
+points)}\label{credit-approval-uxc790uxb8ccuxc5d0-uxb300uxd558uxc5ec-uxc785uxb825-uxd2b9uxc9d5-uxbc0f-uxae30uxacc4uxd559uxc2b5uxbaa8uxb378uxc758-uxd568uxc218uxc801uxc778-uxad6cuxc870uxb97c-uxc124uxba85uxd55cuxb2e4.-10-points}}
+
+    \hypertarget{a.-uxb370uxc774uxd130-uxc785uxb825-uxd2b9uxc9d5-uxc124uxba85}{%
+\subsubsection{  1-A. 데이터 입력 특징
+설명}\label{a.-uxb370uxc774uxd130-uxc785uxb825-uxd2b9uxc9d5-uxc124uxba85}}
+
+    \hypertarget{a-1.-data-set-information-credit-approval}{%
+\paragraph{   1-A-1. Data Set Information (credit
+approval):}\label{a-1.-data-set-information-credit-approval}}
+
+        1. 이 데이터셋은 신용카드 대출 승인여부와 관련 데이터이다.     2.
+모든 속성(Attribute)들의 이름 값은 의미 없는 심볼(symbol)로 대체되어
+있으며, 연속형(cointinous), 범주형(nominal) 데이터로 구성되어 있다.    
+3. 그리고 몇개의 데이터터 값들에 결측치가 존재한다.      * Continuous,
+Nominal with Small Numbers of values(NSN), and Nominal with Larger
+Numbers of values(NLN)
+
+    \hypertarget{a-2.-attribute-information}{%
+\paragraph{   1-A-2. Attribute
+Information:}\label{a-2.-attribute-information}}
+
+        A1: NSN(b,a)        A2: Continuous      A3: Continuous     A4:
+NLN(u, y, l, t)      A5: NLN(g, p, gg)      A6: NLN(c, d, cc, i, j, k,
+m, r, q, w, x, e, aa, f)     A7: NLN(v, h, bb, j, n, z, dd, ff, o)     
+A8: Continuous      A9: NSN(t, f)     A10: NSN(t, f)        A11:
+Continuous      A12: NSN(t, f)     A13: NLN(g, p, s)      A14:
+Continuous      A15: Continuous      A16: Class Attribute(+,-)
+
+    \hypertarget{a-3-uxd559uxc2b5-uxc804-uxb370uxc774uxd130-uxc804uxcc98uxb9ac-uxc218uxd589-uxbc29uxd5a5}{%
+\paragraph{   1-A-3 학습 전 데이터 전처리 수행
+방향}\label{a-3-uxd559uxc2b5-uxc804-uxb370uxc774uxd130-uxc804uxcc98uxb9ac-uxc218uxd589-uxbc29uxd5a5}}
+
+        1. 결측치가 포함된 Attribute(A1, A2, A4, A5, A6, A7, A14)에 대한
+처리가 필요함      - 예측 모델을 만들 예정이므로, 모델 학습 시 모든
+정보가 포함된 입력 값이 들어가야함      - Normianl Type의 Attribute의
+최빈값을 사용하거나, Continous Type의 평균값으로 대체하는 것은 모델에
+왜곡을 발생시킬 수 있음      - 따라서 결측치가 포함된 행을 제거하는
+과정을 수행할 예정     2. 기계학습 모델의 입력은 숫자 형태의 타입으로
+표현되어야 함      - 따라서 Nominal형태의 입력을 0과 1형태의 Onehot
+인코딩을 수행할 예정      - Continous 형태의 입력이나 string으로
+type으로 인식된 모델을 Numerical(float) 형태로 변환 예정
+
+    \hypertarget{a-4-uxd559uxc2b5-uxc804-uxb370uxc774uxd130-uxc804uxcc98uxb9ac}{%
+\paragraph{   1-A-4 학습 전 데이터
+전처리}\label{a-4-uxd559uxc2b5-uxc804-uxb370uxc774uxd130-uxc804uxcc98uxb9ac}}
+
+    \hypertarget{dataframe-uxc0dduxc131}{%
+\subparagraph{    1. Dataframe 생성}\label{dataframe-uxc0dduxc131}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{urllib}\PY{n+nn}{.}\PY{n+nn}{request}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{tree}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neural\PYZus{}network} \PY{k}{import} \PY{n}{MLPClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{AdaBoostClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{KFold}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{classification\PYZus{}report}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{utils} \PY{k}{import} \PY{n}{shuffle}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{precision\PYZus{}recall\PYZus{}fscore\PYZus{}support}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{dataset.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+         \PY{n}{column\PYZus{}name}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A10}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A13}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A14}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A15}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A16}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df}\PY{o}{.}\PY{n}{columns} \PY{o}{=}\PY{n}{column\PYZus{}name}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}   A1     A2     A3 A4 A5 A6 A7    A8 A9 A10  A11 A12 A13    A14  A15 A16
+         0  b  30.83  0.000  u  g  w  v  1.25  t   t    1   f   g  00202    0   +
+         1  a  58.67  4.460  u  g  q  h  3.04  t   t    6   f   g  00043  560   +
+         2  a  24.50  0.500  u  g  q  h  1.50  t   f    0   f   g  00280  824   +
+         3  b  27.83  1.540  u  g  w  v  3.75  t   t    5   t   g  00100    3   +
+         4  b  20.17  5.625  u  g  w  v  1.71  t   f    0   f   s  00120    0   +
+\end{Verbatim}
+            
+        2. 데이터 타입 및 결측치 파악
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{?}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 690 entries, 0 to 689
+Data columns (total 16 columns):
+A1     678 non-null object
+A2     678 non-null object
+A3     690 non-null float64
+A4     684 non-null object
+A5     684 non-null object
+A6     681 non-null object
+A7     681 non-null object
+A8     690 non-null float64
+A9     690 non-null object
+A10    690 non-null object
+A11    690 non-null int64
+A12    690 non-null object
+A13    690 non-null object
+A14    677 non-null object
+A15    690 non-null int64
+A16    690 non-null object
+dtypes: float64(2), int64(2), object(12)
+memory usage: 86.3+ KB
+
+    \end{Verbatim}
+
+        3. 결측치 제거
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 653 entries, 0 to 689
+Data columns (total 16 columns):
+A1     653 non-null object
+A2     653 non-null object
+A3     653 non-null float64
+A4     653 non-null object
+A5     653 non-null object
+A6     653 non-null object
+A7     653 non-null object
+A8     653 non-null float64
+A9     653 non-null object
+A10    653 non-null object
+A11    653 non-null int64
+A12    653 non-null object
+A13    653 non-null object
+A14    653 non-null object
+A15    653 non-null int64
+A16    653 non-null object
+dtypes: float64(2), int64(2), object(12)
+memory usage: 86.7+ KB
+
+    \end{Verbatim}
+
+        4. Continous 값 Numerical 데이터 타입으로 변경
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}numeric}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}numeric}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}numeric}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{13}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}numeric}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{13}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{14}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}numeric}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{14}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+Int64Index: 653 entries, 0 to 689
+Data columns (total 16 columns):
+A1     653 non-null object
+A2     653 non-null float64
+A3     653 non-null float64
+A4     653 non-null object
+A5     653 non-null object
+A6     653 non-null object
+A7     653 non-null object
+A8     653 non-null float64
+A9     653 non-null object
+A10    653 non-null object
+A11    653 non-null int64
+A12    653 non-null object
+A13    653 non-null object
+A14    653 non-null int64
+A15    653 non-null int64
+A16    653 non-null object
+dtypes: float64(3), int64(3), object(10)
+memory usage: 86.7+ KB
+
+    \end{Verbatim}
+
+        5. Nominal Value One Hot Encoding 수행 및 전처리된 Data Frame 확인
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{object\PYZus{}lists} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{object}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+         \PY{n}{object\PYZus{}lists}
+         \PY{k}{for} \PY{n}{object\PYZus{}list} \PY{o+ow}{in} \PY{n}{object\PYZus{}lists}\PY{p}{:}
+             \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{df}\PY{p}{,}\PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{object\PYZus{}list}\PY{p}{]}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{n+nb}{str}\PY{p}{(}\PY{n}{object\PYZus{}list}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{df0} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{object\PYZus{}lists}\PY{p}{)}
+         \PY{n}{df0} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{df0} \PY{o}{=} \PY{n}{shuffle}\PY{p}{(}\PY{n}{df0}\PY{p}{)}
+         \PY{n}{df0}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}         A2      A3      A8  A11  A14  A15  A1\_a  A1\_b  A4\_l  A4\_u  {\ldots}    \textbackslash{}
+         476  23.58   0.835   0.085    0  220    5     0     1     0     1  {\ldots}     
+         585  73.42  17.750   0.000    0    0    0     0     1     0     1  {\ldots}     
+         549  48.33  12.000  16.000    0  110    0     0     1     0     1  {\ldots}     
+         618  29.58   4.750   2.000    1  460   68     0     1     0     1  {\ldots}     
+         380  43.17   5.000   2.250    0  141    0     0     1     0     1  {\ldots}     
+         
+              A9\_f  A9\_t  A10\_f  A10\_t  A12\_f  A12\_t  A13\_g  A13\_p  A13\_s  A16\_+  
+         476     1     0      1      0      0      1      1      0      0      0  
+         585     0     1      1      0      0      1      1      0      0      1  
+         549     0     1      1      0      1      0      0      0      1      1  
+         618     1     0      0      1      0      1      1      0      0      0  
+         380     1     0      1      0      0      1      1      0      0      0  
+         
+         [5 rows x 47 columns]
+\end{Verbatim}
+            
+    \hypertarget{b.-uxae30uxacc4uxd559uxc2b5-uxbaa8uxb378uxc758-uxd568uxc218uxc801uxc778-uxad6cuxc870}{%
+\subsubsection{  1-B. 기계학습 모델의 함수적인
+구조}\label{b.-uxae30uxacc4uxd559uxc2b5-uxbaa8uxb378uxc758-uxd568uxc218uxc801uxc778-uxad6cuxc870}}
+
+    \hypertarget{b-1.-uxc704uxc758-uxb370uxc774uxd130uxc14buxc73cuxb85c-uxc0dduxc131uxb418uxb294-uxae30uxacc4uxd559uxc2b5-uxbaa8uxb378uxc758-uxc785uxb825input-uxcd9cuxb825output-uxad6cuxc870uxb294-uxc544uxb798uxc640-uxac19uxb2e4.}{%
+\paragraph{   1-B-1. 위의 데이터셋으로 생성되는 기계학습 모델의
+입력(Input), 출력(Output) 구조는 아래와
+같다.}\label{b-1.-uxc704uxc758-uxb370uxc774uxd130uxc14buxc73cuxb85c-uxc0dduxc131uxb418uxb294-uxae30uxacc4uxd559uxc2b5-uxbaa8uxb378uxc758-uxc785uxb825input-uxcd9cuxb825output-uxad6cuxc870uxb294-uxc544uxb798uxc640-uxac19uxb2e4.}}
+
+        1. Output: Class Attribute (A16)      - binary 구조의 형태로 출력
+표현됨      - 대출승인이 허가되면 1, 대출승인이 불허되면 0     2. Input:
+Class Attribute를 제외한 모든 Attribute (A1, A2, \textasciitilde{} ,
+A15)      - Norminal Attribute: 0, 1 형태로 변환됨      - Continous
+Attribute: float 형태로 변환됨 
+
+    \hypertarget{uxc120uxd0dduxb41c-uxd559uxc2b5uxbaa8uxb378uxc5d0-uxb300uxd558uxc5ec-uxd559uxc2b5-uxd30cuxb77cuxbbf8uxd130uxb97c-uxacb0uxc815uxd55c-uxbc29uxbc95uxacfc-uxadf8-uxc774uxc720uxb97c-uxc124uxba85uxd55cuxb2e4.-10-points}{%
+\subsection{2. 선택된 학습모델에 대하여 학습 파라미터를 결정한 방법과 그
+이유를 설명한다. (10
+points)}\label{uxc120uxd0dduxb41c-uxd559uxc2b5uxbaa8uxb378uxc5d0-uxb300uxd558uxc5ec-uxd559uxc2b5-uxd30cuxb77cuxbbf8uxd130uxb97c-uxacb0uxc815uxd55c-uxbc29uxbc95uxacfc-uxadf8-uxc774uxc720uxb97c-uxc124uxba85uxd55cuxb2e4.-10-points}}
+
+    \hypertarget{a.-canonical-models}{%
+\subsubsection{  2-A. Canonical Models}\label{a.-canonical-models}}
+
+    \hypertarget{a-1.-decision-tree}{%
+\paragraph{   2-A-1. Decision Tree}\label{a-1.-decision-tree}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{불순도를} \PY{n}{측정}
+\end{Verbatim}
+
+
+    \hypertarget{a-2.-mlp}{%
+\paragraph{   2-A-2. MLP}\label{a-2.-mlp}}
+
+    \hypertarget{b.-committee-machines}{%
+\subsubsection{  2-B. Committee Machines}\label{b.-committee-machines}}
+
+    \hypertarget{b-1.-random-forest-ada-boost}{%
+\paragraph{   2-B-1. Random Forest, Ada
+Boost}\label{b-1.-random-forest-ada-boost}}
+
+    \hypertarget{b-2.-ada-boost}{%
+\paragraph{   2-B-2. Ada Boost}\label{b-2.-ada-boost}}
+
+    \hypertarget{c.-deep-learning-models}{%
+\subsubsection{  2-C. Deep Learning
+Models}\label{c.-deep-learning-models}}
+
+    \hypertarget{c-1.-cnn}{%
+\paragraph{   2-C-1. CNN}\label{c-1.-cnn}}
+
+    \hypertarget{uxc704uxc5d0uxc11c-uxc124uxba85uxd55c-uxd559uxc2b5uxbaa8uxb378uxc758-uxd3c9uxac00uxbc29uxbc95uxc744-uxc0acuxc6a9uxd558uxc5ec-uxac01-uxd559uxc2b5uxbaa8uxb378uxc5d0-uxb300uxd55c-uxd3c9uxac00uxc758-uxce21uxb3c4uxb97c-uxc815uxb9acuxd55cuxb2e4.-20-points}{%
+\subsection{3. 위에서 설명한 학습모델의 평가방법을 사용하여 각
+학습모델에 대한 평가의 측도를 정리한다. (20
+points)}\label{uxc704uxc5d0uxc11c-uxc124uxba85uxd55c-uxd559uxc2b5uxbaa8uxb378uxc758-uxd3c9uxac00uxbc29uxbc95uxc744-uxc0acuxc6a9uxd558uxc5ec-uxac01-uxd559uxc2b5uxbaa8uxb378uxc5d0-uxb300uxd55c-uxd3c9uxac00uxc758-uxce21uxb3c4uxb97c-uxc815uxb9acuxd55cuxb2e4.-20-points}}
+
+    decision tree
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{aAccuracy} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{aPrecision} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{aRecall} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{aF1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+         \PY{n}{kf} \PY{o}{=} \PY{n}{KFold}\PY{p}{(}\PY{n}{n\PYZus{}splits}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o+ow}{in} \PY{n}{kf}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{df0}\PY{p}{)}\PY{p}{:}
+             \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{train}\PY{p}{]}\PY{p}{[}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+             \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{train}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{test}\PY{p}{]}\PY{p}{[}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+             \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{test}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n}{clf} \PY{o}{=} \PY{n}{tree}\PY{o}{.}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{criterion} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{entropy}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{max\PYZus{}depth} \PY{o}{=} \PY{l+m+mi}{7}\PY{p}{)}
+             \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+             \PY{n}{predicted} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+             \PY{n}{TN}\PY{p}{,} \PY{n}{FP}\PY{p}{,} \PY{n}{FN}\PY{p}{,} \PY{n}{TP} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{predicted}\PY{p}{)}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}    
+             
+             \PY{n}{Accuracy}  \PY{o}{=} \PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{TN}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{TN}\PY{o}{+}\PY{n}{FP}\PY{o}{+}\PY{n}{FN}\PY{p}{)}
+             \PY{n}{Precision} \PY{o}{=} \PY{p}{(}\PY{n}{TP}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FP}\PY{p}{)}
+             \PY{n}{Recall} \PY{o}{=} \PY{p}{(}\PY{n}{TP}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FN}\PY{p}{)}
+             \PY{n}{F1} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{Precision}\PY{o}{*}\PY{n}{Recall}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{Precision} \PY{o}{+} \PY{n}{Recall}\PY{p}{)}
+             
+             \PY{n}{aAccuracy}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{Accuracy}
+             \PY{n}{aPrecision}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{Precision}
+             \PY{n}{aRecall}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{Recall}
+             \PY{n}{aF1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{F1}
+         
+             \PY{n}{i} \PY{o}{=} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}    
+             
+             \PY{n}{report} \PY{o}{=} \PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{predicted}\PY{p}{)}
+         
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}    
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Evaluation Methods 10th\PYZhy{}Mean values}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}    
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aAccuracy}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precision }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aPrecision}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Recall }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aRecall}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F1 }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aF1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Evaluation Methods 10th-Mean values
+
+
+Accuracy  0.8531934731934733
+Precision  0.8427666214679315
+Recall  0.8486252967462645
+F1  0.8385673489861759
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} 
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} 2
+\end{Verbatim}
+            
+    MLP
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o+ow}{in} \PY{n}{kf}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{df0}\PY{p}{)}\PY{p}{:}
+             \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{train}\PY{p}{]}\PY{p}{[}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+             \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{train}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{test}\PY{p}{]}\PY{p}{[}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+             \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{test}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n}{clf} \PY{o}{=} \PY{n}{MLPClassifier}\PY{p}{(}\PY{n}{solver}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lbfgs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}5}\PY{p}{,} \PY{n}{hidden\PYZus{}layer\PYZus{}sizes}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+             
+             \PY{n}{predicted} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+             \PY{n}{TN}\PY{p}{,} \PY{n}{FP}\PY{p}{,} \PY{n}{FN}\PY{p}{,} \PY{n}{TP} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{predicted}\PY{p}{)}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}    
+             
+             \PY{n}{Accuracy}  \PY{o}{=} \PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{TN}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{TN}\PY{o}{+}\PY{n}{FP}\PY{o}{+}\PY{n}{FN}\PY{p}{)}
+             \PY{n}{Precision} \PY{o}{=} \PY{p}{(}\PY{n}{TP}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FP}\PY{p}{)}
+             \PY{n}{Recall} \PY{o}{=} \PY{p}{(}\PY{n}{TP}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FN}\PY{p}{)}
+             \PY{n}{F1} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{Precision}\PY{o}{*}\PY{n}{Recall}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{Precision} \PY{o}{+} \PY{n}{Recall}\PY{p}{)}
+             
+             \PY{n}{aAccuracy}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{Accuracy}
+             \PY{n}{aPrecision}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{Precision}
+             \PY{n}{aRecall}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{Recall}
+             \PY{n}{aF1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{F1}
+         
+             \PY{n}{i} \PY{o}{=} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}    
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Accuracy}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precision }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Precision}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Recall }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Recall}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F1 }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{F1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}    
+             
+             \PY{n}{report} \PY{o}{=} \PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{predicted}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{report}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}    
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Evaluation Methods 10th\PYZhy{}Mean values}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}    
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aAccuracy}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precision }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aPrecision}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Recall }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aRecall}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F1 }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aF1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy  0.7272727272727273
+Precision  0.7333333333333333
+Recall  0.6875
+F1  0.7096774193548386
+
+
+              precision    recall  f1-score   support
+
+           0       0.72      0.76      0.74        34
+           1       0.73      0.69      0.71        32
+
+   micro avg       0.73      0.73      0.73        66
+   macro avg       0.73      0.73      0.73        66
+weighted avg       0.73      0.73      0.73        66
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.6515151515151515
+Precision  0.5925925925925926
+Recall  0.5714285714285714
+F1  0.5818181818181818
+
+
+              precision    recall  f1-score   support
+
+           0       0.69      0.71      0.70        38
+           1       0.59      0.57      0.58        28
+
+   micro avg       0.65      0.65      0.65        66
+   macro avg       0.64      0.64      0.64        66
+weighted avg       0.65      0.65      0.65        66
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.7121212121212122
+Precision  0.71875
+Recall  0.696969696969697
+F1  0.7076923076923077
+
+
+              precision    recall  f1-score   support
+
+           0       0.71      0.73      0.72        33
+           1       0.72      0.70      0.71        33
+
+   micro avg       0.71      0.71      0.71        66
+   macro avg       0.71      0.71      0.71        66
+weighted avg       0.71      0.71      0.71        66
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8615384615384616
+Precision  0.8055555555555556
+Recall  0.9354838709677419
+F1  0.8656716417910448
+
+
+              precision    recall  f1-score   support
+
+           0       0.93      0.79      0.86        34
+           1       0.81      0.94      0.87        31
+
+   micro avg       0.86      0.86      0.86        65
+   macro avg       0.87      0.86      0.86        65
+weighted avg       0.87      0.86      0.86        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.7846153846153846
+Precision  0.6896551724137931
+Recall  0.8
+F1  0.7407407407407408
+
+
+              precision    recall  f1-score   support
+
+           0       0.86      0.78      0.82        40
+           1       0.69      0.80      0.74        25
+
+   micro avg       0.78      0.78      0.78        65
+   macro avg       0.78      0.79      0.78        65
+weighted avg       0.80      0.78      0.79        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8153846153846154
+Precision  0.7352941176470589
+Recall  0.8928571428571429
+F1  0.806451612903226
+
+
+              precision    recall  f1-score   support
+
+           0       0.90      0.76      0.82        37
+           1       0.74      0.89      0.81        28
+
+   micro avg       0.82      0.82      0.82        65
+   macro avg       0.82      0.82      0.81        65
+weighted avg       0.83      0.82      0.82        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.7230769230769231
+Precision  0.7586206896551724
+Recall  0.6666666666666666
+F1  0.7096774193548386
+
+
+              precision    recall  f1-score   support
+
+           0       0.69      0.78      0.74        32
+           1       0.76      0.67      0.71        33
+
+   micro avg       0.72      0.72      0.72        65
+   macro avg       0.73      0.72      0.72        65
+weighted avg       0.73      0.72      0.72        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8
+Precision  0.6774193548387096
+Recall  0.875
+F1  0.7636363636363636
+
+
+              precision    recall  f1-score   support
+
+           0       0.91      0.76      0.83        41
+           1       0.68      0.88      0.76        24
+
+   micro avg       0.80      0.80      0.80        65
+   macro avg       0.79      0.82      0.80        65
+weighted avg       0.83      0.80      0.80        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.7384615384615385
+Precision  0.7272727272727273
+Recall  0.75
+F1  0.7384615384615384
+
+
+              precision    recall  f1-score   support
+
+           0       0.75      0.73      0.74        33
+           1       0.73      0.75      0.74        32
+
+   micro avg       0.74      0.74      0.74        65
+   macro avg       0.74      0.74      0.74        65
+weighted avg       0.74      0.74      0.74        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.7692307692307693
+Precision  0.7419354838709677
+Recall  0.7666666666666667
+F1  0.7540983606557377
+
+
+              precision    recall  f1-score   support
+
+           0       0.79      0.77      0.78        35
+           1       0.74      0.77      0.75        30
+
+   micro avg       0.77      0.77      0.77        65
+   macro avg       0.77      0.77      0.77        65
+weighted avg       0.77      0.77      0.77        65
+
+---------------------------------------------------------------------------------------------------- 
+
+
+
+
+
+
+
+Evaluation Methods 10th-Mean values
+
+
+
+
+Accuracy  0.7583216783216784
+Precision  0.7180429027179911
+Recall  0.7642572615556487
+F1  0.7377925586408818
+
+    \end{Verbatim}
+
+    Random Forest
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o+ow}{in} \PY{n}{kf}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{df0}\PY{p}{)}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}     print(\PYZdq{}\PYZpc{}s \PYZpc{}s\PYZdq{} \PYZpc{} (train, test))}
+             \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{train}\PY{p}{]}\PY{p}{[}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+             \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{train}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{test}\PY{p}{]}\PY{p}{[}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+             \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{test}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n}{clf} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,}
+                                         \PY{n}{criterion}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gini}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                         \PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,}
+                                         \PY{n}{min\PYZus{}samples\PYZus{}split}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,}
+                                         \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+             \PY{n}{predicted} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+             
+             \PY{n}{TN}\PY{p}{,} \PY{n}{FP}\PY{p}{,} \PY{n}{FN}\PY{p}{,} \PY{n}{TP} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{predicted}\PY{p}{)}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}    
+         
+             \PY{n}{Accuracy}  \PY{o}{=} \PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{TN}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{TN}\PY{o}{+}\PY{n}{FP}\PY{o}{+}\PY{n}{FN}\PY{p}{)}
+             \PY{n}{Precision} \PY{o}{=} \PY{p}{(}\PY{n}{TP}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FP}\PY{p}{)}
+             \PY{n}{Recall} \PY{o}{=} \PY{p}{(}\PY{n}{TP}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FN}\PY{p}{)}
+             \PY{n}{F1} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{Precision}\PY{o}{*}\PY{n}{Recall}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{Precision} \PY{o}{+} \PY{n}{Recall}\PY{p}{)}
+             
+             \PY{n}{aAccuracy}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{Accuracy}
+             \PY{n}{aPrecision}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{Precision}
+             \PY{n}{aRecall}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{Recall}
+             \PY{n}{aF1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{F1}
+         
+             \PY{n}{i} \PY{o}{=} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}    
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Accuracy}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precision }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Precision}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Recall }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Recall}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F1 }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{F1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+             \PY{n}{report} \PY{o}{=} \PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{predicted}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{report}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Evaluation Methods 10th\PYZhy{}Mean values}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}    
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aAccuracy}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precision }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aPrecision}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Recall }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aRecall}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F1 }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aF1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy  0.8787878787878788
+Precision  0.9285714285714286
+Recall  0.8125
+F1  0.8666666666666666
+
+
+              precision    recall  f1-score   support
+
+           0       0.84      0.94      0.89        34
+           1       0.93      0.81      0.87        32
+
+   micro avg       0.88      0.88      0.88        66
+   macro avg       0.89      0.88      0.88        66
+weighted avg       0.88      0.88      0.88        66
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.7575757575757576
+Precision  0.7142857142857143
+Recall  0.7142857142857143
+F1  0.7142857142857143
+
+
+              precision    recall  f1-score   support
+
+           0       0.79      0.79      0.79        38
+           1       0.71      0.71      0.71        28
+
+   micro avg       0.76      0.76      0.76        66
+   macro avg       0.75      0.75      0.75        66
+weighted avg       0.76      0.76      0.76        66
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8787878787878788
+Precision  0.9310344827586207
+Recall  0.8181818181818182
+F1  0.8709677419354839
+
+
+              precision    recall  f1-score   support
+
+           0       0.84      0.94      0.89        33
+           1       0.93      0.82      0.87        33
+
+   micro avg       0.88      0.88      0.88        66
+   macro avg       0.88      0.88      0.88        66
+weighted avg       0.88      0.88      0.88        66
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8461538461538461
+Precision  0.8181818181818182
+Recall  0.8709677419354839
+F1  0.84375
+
+
+              precision    recall  f1-score   support
+
+           0       0.88      0.82      0.85        34
+           1       0.82      0.87      0.84        31
+
+   micro avg       0.85      0.85      0.85        65
+   macro avg       0.85      0.85      0.85        65
+weighted avg       0.85      0.85      0.85        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8307692307692308
+Precision  0.7058823529411765
+Recall  0.96
+F1  0.8135593220338982
+
+
+              precision    recall  f1-score   support
+
+           0       0.97      0.75      0.85        40
+           1       0.71      0.96      0.81        25
+
+   micro avg       0.83      0.83      0.83        65
+   macro avg       0.84      0.85      0.83        65
+weighted avg       0.87      0.83      0.83        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8923076923076924
+Precision  0.8181818181818182
+Recall  0.9642857142857143
+F1  0.8852459016393442
+
+
+              precision    recall  f1-score   support
+
+           0       0.97      0.84      0.90        37
+           1       0.82      0.96      0.89        28
+
+   micro avg       0.89      0.89      0.89        65
+   macro avg       0.89      0.90      0.89        65
+weighted avg       0.90      0.89      0.89        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8615384615384616
+Precision  0.9
+Recall  0.8181818181818182
+F1  0.8571428571428572
+
+
+              precision    recall  f1-score   support
+
+           0       0.83      0.91      0.87        32
+           1       0.90      0.82      0.86        33
+
+   micro avg       0.86      0.86      0.86        65
+   macro avg       0.86      0.86      0.86        65
+weighted avg       0.86      0.86      0.86        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8769230769230769
+Precision  0.8076923076923077
+Recall  0.875
+F1  0.8400000000000001
+
+
+              precision    recall  f1-score   support
+
+           0       0.92      0.88      0.90        41
+           1       0.81      0.88      0.84        24
+
+   micro avg       0.88      0.88      0.88        65
+   macro avg       0.87      0.88      0.87        65
+weighted avg       0.88      0.88      0.88        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8923076923076924
+Precision  0.8787878787878788
+Recall  0.90625
+F1  0.8923076923076922
+
+
+              precision    recall  f1-score   support
+
+           0       0.91      0.88      0.89        33
+           1       0.88      0.91      0.89        32
+
+   micro avg       0.89      0.89      0.89        65
+   macro avg       0.89      0.89      0.89        65
+weighted avg       0.89      0.89      0.89        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.9230769230769231
+Precision  0.9032258064516129
+Recall  0.9333333333333333
+F1  0.9180327868852459
+
+
+              precision    recall  f1-score   support
+
+           0       0.94      0.91      0.93        35
+           1       0.90      0.93      0.92        30
+
+   micro avg       0.92      0.92      0.92        65
+   macro avg       0.92      0.92      0.92        65
+weighted avg       0.92      0.92      0.92        65
+
+---------------------------------------------------------------------------------------------------- 
+
+
+
+
+
+
+
+Evaluation Methods 10th-Mean values
+
+
+
+
+Accuracy  0.8638228438228438
+Precision  0.8405843607852376
+Recall  0.8672986140203882
+F1  0.8501958682896902
+
+    \end{Verbatim}
+
+    Adaboost
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{train}\PY{p}{,} \PY{n}{test} \PY{o+ow}{in} \PY{n}{kf}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{df0}\PY{p}{)}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}     print(\PYZdq{}\PYZpc{}s \PYZpc{}s\PYZdq{} \PYZpc{} (train, test))}
+             \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{train}\PY{p}{]}\PY{p}{[}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+             \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{train}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{test}\PY{p}{]}\PY{p}{[}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+             \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{df0}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{test}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{df0}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{n}{clf} \PY{o}{=}  \PY{n}{AdaBoostClassifier}\PY{p}{(}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+                                       \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{,}
+                                       \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+             \PY{n}{predicted} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+             
+             \PY{n}{TN}\PY{p}{,} \PY{n}{FP}\PY{p}{,} \PY{n}{FN}\PY{p}{,} \PY{n}{TP} \PY{o}{=} \PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{predicted}\PY{p}{)}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}    
+         
+             \PY{n}{Accuracy}  \PY{o}{=} \PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{TN}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{TN}\PY{o}{+}\PY{n}{FP}\PY{o}{+}\PY{n}{FN}\PY{p}{)}
+             \PY{n}{Precision} \PY{o}{=} \PY{p}{(}\PY{n}{TP}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FP}\PY{p}{)}
+             \PY{n}{Recall} \PY{o}{=} \PY{p}{(}\PY{n}{TP}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FN}\PY{p}{)}
+             \PY{n}{F1} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{Precision}\PY{o}{*}\PY{n}{Recall}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{Precision} \PY{o}{+} \PY{n}{Recall}\PY{p}{)}
+             
+             \PY{n}{aAccuracy}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{Accuracy}
+             \PY{n}{aPrecision}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{Precision}
+             \PY{n}{aRecall}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{Recall}
+             \PY{n}{aF1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{F1}
+         
+             \PY{n}{i} \PY{o}{=} \PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}    
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Accuracy}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precision }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Precision}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Recall }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{Recall}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F1 }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{F1}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+             \PY{n}{report} \PY{o}{=} \PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{predicted}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{report}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Evaluation Methods 10th\PYZhy{}Mean values}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}    
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aAccuracy}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Precision }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aPrecision}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Recall }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aRecall}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{F1 }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{aF1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Accuracy  0.8636363636363636
+Precision  0.9259259259259259
+Recall  0.78125
+F1  0.847457627118644
+
+
+              precision    recall  f1-score   support
+
+           0       0.82      0.94      0.88        34
+           1       0.93      0.78      0.85        32
+
+   micro avg       0.86      0.86      0.86        66
+   macro avg       0.87      0.86      0.86        66
+weighted avg       0.87      0.86      0.86        66
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.7727272727272727
+Precision  0.7241379310344828
+Recall  0.75
+F1  0.736842105263158
+
+
+              precision    recall  f1-score   support
+
+           0       0.81      0.79      0.80        38
+           1       0.72      0.75      0.74        28
+
+   micro avg       0.77      0.77      0.77        66
+   macro avg       0.77      0.77      0.77        66
+weighted avg       0.77      0.77      0.77        66
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.803030303030303
+Precision  0.8125
+Recall  0.7878787878787878
+F1  0.8
+
+
+              precision    recall  f1-score   support
+
+           0       0.79      0.82      0.81        33
+           1       0.81      0.79      0.80        33
+
+   micro avg       0.80      0.80      0.80        66
+   macro avg       0.80      0.80      0.80        66
+weighted avg       0.80      0.80      0.80        66
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8615384615384616
+Precision  0.84375
+Recall  0.8709677419354839
+F1  0.8571428571428571
+
+
+              precision    recall  f1-score   support
+
+           0       0.88      0.85      0.87        34
+           1       0.84      0.87      0.86        31
+
+   micro avg       0.86      0.86      0.86        65
+   macro avg       0.86      0.86      0.86        65
+weighted avg       0.86      0.86      0.86        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.7846153846153846
+Precision  0.6774193548387096
+Recall  0.84
+F1  0.75
+
+
+              precision    recall  f1-score   support
+
+           0       0.88      0.75      0.81        40
+           1       0.68      0.84      0.75        25
+
+   micro avg       0.78      0.78      0.78        65
+   macro avg       0.78      0.79      0.78        65
+weighted avg       0.80      0.78      0.79        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8923076923076924
+Precision  0.8181818181818182
+Recall  0.9642857142857143
+F1  0.8852459016393442
+
+
+              precision    recall  f1-score   support
+
+           0       0.97      0.84      0.90        37
+           1       0.82      0.96      0.89        28
+
+   micro avg       0.89      0.89      0.89        65
+   macro avg       0.89      0.90      0.89        65
+weighted avg       0.90      0.89      0.89        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8615384615384616
+Precision  0.875
+Recall  0.8484848484848485
+F1  0.8615384615384615
+
+
+              precision    recall  f1-score   support
+
+           0       0.85      0.88      0.86        32
+           1       0.88      0.85      0.86        33
+
+   micro avg       0.86      0.86      0.86        65
+   macro avg       0.86      0.86      0.86        65
+weighted avg       0.86      0.86      0.86        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8
+Precision  0.72
+Recall  0.75
+F1  0.7346938775510204
+
+
+              precision    recall  f1-score   support
+
+           0       0.85      0.83      0.84        41
+           1       0.72      0.75      0.73        24
+
+   micro avg       0.80      0.80      0.80        65
+   macro avg       0.78      0.79      0.79        65
+weighted avg       0.80      0.80      0.80        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8
+Precision  0.8275862068965517
+Recall  0.75
+F1  0.7868852459016394
+
+
+              precision    recall  f1-score   support
+
+           0       0.78      0.85      0.81        33
+           1       0.83      0.75      0.79        32
+
+   micro avg       0.80      0.80      0.80        65
+   macro avg       0.80      0.80      0.80        65
+weighted avg       0.80      0.80      0.80        65
+
+---------------------------------------------------------------------------------------------------- 
+
+Accuracy  0.8307692307692308
+Precision  0.7714285714285715
+Recall  0.9
+F1  0.8307692307692307
+
+
+              precision    recall  f1-score   support
+
+           0       0.90      0.77      0.83        35
+           1       0.77      0.90      0.83        30
+
+   micro avg       0.83      0.83      0.83        65
+   macro avg       0.84      0.84      0.83        65
+weighted avg       0.84      0.83      0.83        65
+
+---------------------------------------------------------------------------------------------------- 
+
+
+
+
+
+
+
+Evaluation Methods 10th-Mean values
+
+
+
+
+Accuracy  0.827016317016317
+Precision  0.7995929808306059
+Recall  0.8242867092584835
+F1  0.8090575306924356
+
+    \end{Verbatim}
+
+    CNN
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Importing Keras Sequential Model}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Dense}
+         
+         \PY{c+c1}{\PYZsh{} Initializing the Sequential model from KERAS.}
+         \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Creating a 20 neuron hidden layer with Linear Rectified activation function.}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{relu}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{uniform}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+                   
+         \PY{c+c1}{\PYZsh{} Creating a 10 neuron hidden layer.}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{uniform}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Adding a output layer.}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{uniform}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Compiling the model}
+         \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{binary\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                       \PY{n}{optimizer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Fitting the model}
+         \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{scores} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{metrics\PYZus{}names}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{scores}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{*} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using TensorFlow backend.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 1/300
+588/588 [==============================] - 0s 556us/step - loss: 0.6440 - acc: 0.6684
+Epoch 2/300
+588/588 [==============================] - 0s 71us/step - loss: 0.6184 - acc: 0.6905
+Epoch 3/300
+588/588 [==============================] - 0s 70us/step - loss: 0.6042 - acc: 0.7075
+Epoch 4/300
+588/588 [==============================] - 0s 68us/step - loss: 0.6030 - acc: 0.7194
+Epoch 5/300
+588/588 [==============================] - 0s 68us/step - loss: 0.5940 - acc: 0.7126
+Epoch 6/300
+588/588 [==============================] - 0s 68us/step - loss: 0.5746 - acc: 0.7330
+Epoch 7/300
+588/588 [==============================] - 0s 66us/step - loss: 0.5459 - acc: 0.7687
+Epoch 8/300
+588/588 [==============================] - 0s 66us/step - loss: 0.5178 - acc: 0.7925
+Epoch 9/300
+588/588 [==============================] - 0s 68us/step - loss: 0.5117 - acc: 0.7687
+Epoch 10/300
+588/588 [==============================] - 0s 66us/step - loss: 0.4788 - acc: 0.7993
+Epoch 11/300
+588/588 [==============================] - 0s 64us/step - loss: 0.4792 - acc: 0.7993
+Epoch 12/300
+588/588 [==============================] - 0s 66us/step - loss: 0.4888 - acc: 0.7891
+Epoch 13/300
+588/588 [==============================] - 0s 66us/step - loss: 0.4525 - acc: 0.8095
+Epoch 14/300
+588/588 [==============================] - 0s 64us/step - loss: 0.4404 - acc: 0.8282
+Epoch 15/300
+588/588 [==============================] - 0s 70us/step - loss: 0.4309 - acc: 0.8282
+Epoch 16/300
+588/588 [==============================] - 0s 63us/step - loss: 0.3989 - acc: 0.8435
+Epoch 17/300
+588/588 [==============================] - 0s 63us/step - loss: 0.4347 - acc: 0.8384
+Epoch 18/300
+588/588 [==============================] - 0s 68us/step - loss: 0.4428 - acc: 0.7993
+Epoch 19/300
+588/588 [==============================] - 0s 66us/step - loss: 0.4066 - acc: 0.8044
+Epoch 20/300
+588/588 [==============================] - 0s 68us/step - loss: 0.3946 - acc: 0.8231
+Epoch 21/300
+588/588 [==============================] - 0s 64us/step - loss: 0.3957 - acc: 0.8350
+Epoch 22/300
+588/588 [==============================] - 0s 68us/step - loss: 0.3918 - acc: 0.8401
+Epoch 23/300
+588/588 [==============================] - 0s 61us/step - loss: 0.3824 - acc: 0.8435
+Epoch 24/300
+588/588 [==============================] - 0s 64us/step - loss: 0.3667 - acc: 0.8503
+Epoch 25/300
+588/588 [==============================] - 0s 66us/step - loss: 0.3711 - acc: 0.8435
+Epoch 26/300
+588/588 [==============================] - 0s 71us/step - loss: 0.3570 - acc: 0.8537
+Epoch 27/300
+588/588 [==============================] - 0s 64us/step - loss: 0.3818 - acc: 0.8384
+Epoch 28/300
+588/588 [==============================] - 0s 66us/step - loss: 0.3623 - acc: 0.8452
+Epoch 29/300
+588/588 [==============================] - 0s 70us/step - loss: 0.3410 - acc: 0.8571
+Epoch 30/300
+588/588 [==============================] - 0s 68us/step - loss: 0.3420 - acc: 0.8605
+Epoch 31/300
+588/588 [==============================] - 0s 64us/step - loss: 0.3920 - acc: 0.8554
+Epoch 32/300
+588/588 [==============================] - 0s 64us/step - loss: 0.3601 - acc: 0.8571
+Epoch 33/300
+588/588 [==============================] - 0s 66us/step - loss: 0.3266 - acc: 0.8639
+Epoch 34/300
+588/588 [==============================] - 0s 63us/step - loss: 0.3251 - acc: 0.8724
+Epoch 35/300
+588/588 [==============================] - 0s 64us/step - loss: 0.3282 - acc: 0.8690
+Epoch 36/300
+588/588 [==============================] - 0s 66us/step - loss: 0.3808 - acc: 0.8486
+Epoch 37/300
+588/588 [==============================] - 0s 63us/step - loss: 0.3121 - acc: 0.8690
+Epoch 38/300
+588/588 [==============================] - 0s 64us/step - loss: 0.3141 - acc: 0.8673
+Epoch 39/300
+588/588 [==============================] - 0s 64us/step - loss: 0.3340 - acc: 0.8486
+Epoch 40/300
+588/588 [==============================] - 0s 63us/step - loss: 0.3182 - acc: 0.8673
+Epoch 41/300
+588/588 [==============================] - 0s 70us/step - loss: 0.3173 - acc: 0.8793
+Epoch 42/300
+588/588 [==============================] - 0s 63us/step - loss: 0.3191 - acc: 0.8622
+Epoch 43/300
+588/588 [==============================] - 0s 66us/step - loss: 0.3164 - acc: 0.8639
+Epoch 44/300
+588/588 [==============================] - 0s 61us/step - loss: 0.3050 - acc: 0.8776
+Epoch 45/300
+588/588 [==============================] - 0s 70us/step - loss: 0.3137 - acc: 0.8793
+Epoch 46/300
+588/588 [==============================] - 0s 63us/step - loss: 0.3041 - acc: 0.8929
+Epoch 47/300
+588/588 [==============================] - 0s 64us/step - loss: 0.3365 - acc: 0.8622
+Epoch 48/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2994 - acc: 0.8707
+Epoch 49/300
+588/588 [==============================] - 0s 63us/step - loss: 0.3016 - acc: 0.8810
+Epoch 50/300
+588/588 [==============================] - 0s 64us/step - loss: 0.3083 - acc: 0.8741
+Epoch 51/300
+588/588 [==============================] - 0s 66us/step - loss: 0.3080 - acc: 0.8656
+Epoch 52/300
+588/588 [==============================] - 0s 63us/step - loss: 0.3112 - acc: 0.8724
+Epoch 53/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2998 - acc: 0.8741
+Epoch 54/300
+588/588 [==============================] - 0s 63us/step - loss: 0.3066 - acc: 0.8827
+Epoch 55/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2952 - acc: 0.8827
+Epoch 56/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2929 - acc: 0.8793
+Epoch 57/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2966 - acc: 0.8793
+Epoch 58/300
+588/588 [==============================] - 0s 64us/step - loss: 0.3291 - acc: 0.8622
+Epoch 59/300
+588/588 [==============================] - 0s 63us/step - loss: 0.3006 - acc: 0.8741
+Epoch 60/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2960 - acc: 0.8810
+Epoch 61/300
+588/588 [==============================] - 0s 66us/step - loss: 0.3128 - acc: 0.8673
+Epoch 62/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2896 - acc: 0.8776
+Epoch 63/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2853 - acc: 0.8776
+Epoch 64/300
+588/588 [==============================] - 0s 61us/step - loss: 0.3031 - acc: 0.8759
+Epoch 65/300
+588/588 [==============================] - 0s 66us/step - loss: 0.3129 - acc: 0.8622
+Epoch 66/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2851 - acc: 0.8810
+Epoch 67/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2882 - acc: 0.8690
+Epoch 68/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2810 - acc: 0.8827
+Epoch 69/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2793 - acc: 0.8776
+Epoch 70/300
+588/588 [==============================] - 0s 61us/step - loss: 0.2842 - acc: 0.8724
+Epoch 71/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2831 - acc: 0.8878
+Epoch 72/300
+588/588 [==============================] - 0s 64us/step - loss: 0.3652 - acc: 0.8554
+Epoch 73/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2950 - acc: 0.8776
+Epoch 74/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2778 - acc: 0.8912
+Epoch 75/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2891 - acc: 0.8827
+Epoch 76/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2734 - acc: 0.8861
+Epoch 77/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2711 - acc: 0.8861
+Epoch 78/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2597 - acc: 0.8929
+Epoch 79/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2989 - acc: 0.8707
+Epoch 80/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2893 - acc: 0.8776
+Epoch 81/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2605 - acc: 0.8946
+Epoch 82/300
+588/588 [==============================] - 0s 73us/step - loss: 0.2789 - acc: 0.8776
+Epoch 83/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2989 - acc: 0.8759
+Epoch 84/300
+588/588 [==============================] - 0s 71us/step - loss: 0.2636 - acc: 0.8844
+Epoch 85/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2734 - acc: 0.8844
+Epoch 86/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2971 - acc: 0.8673
+Epoch 87/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2651 - acc: 0.8861
+Epoch 88/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2593 - acc: 0.8878
+Epoch 89/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2602 - acc: 0.8963
+Epoch 90/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2617 - acc: 0.9031
+Epoch 91/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2712 - acc: 0.9031
+Epoch 92/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2696 - acc: 0.8912
+Epoch 93/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2670 - acc: 0.8776
+Epoch 94/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2730 - acc: 0.8827
+Epoch 95/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2523 - acc: 0.8980
+Epoch 96/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2713 - acc: 0.8844
+Epoch 97/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2672 - acc: 0.8963
+Epoch 98/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2637 - acc: 0.8912
+Epoch 99/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2520 - acc: 0.8946
+Epoch 100/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2620 - acc: 0.8997
+Epoch 101/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2545 - acc: 0.8946
+Epoch 102/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2600 - acc: 0.8946
+Epoch 103/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2502 - acc: 0.8997
+Epoch 104/300
+588/588 [==============================] - 0s 66us/step - loss: 0.3325 - acc: 0.8776
+Epoch 105/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2833 - acc: 0.8707
+Epoch 106/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2501 - acc: 0.8980
+Epoch 107/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2471 - acc: 0.8912
+Epoch 108/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2526 - acc: 0.8980
+Epoch 109/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2588 - acc: 0.8929
+Epoch 110/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2497 - acc: 0.8929
+Epoch 111/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2477 - acc: 0.8929
+Epoch 112/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2530 - acc: 0.9031
+Epoch 113/300
+588/588 [==============================] - 0s 71us/step - loss: 0.2584 - acc: 0.8861
+Epoch 114/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2550 - acc: 0.8912
+Epoch 115/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2519 - acc: 0.8946
+Epoch 116/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2543 - acc: 0.9048
+Epoch 117/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2371 - acc: 0.8997
+Epoch 118/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2591 - acc: 0.8963
+Epoch 119/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2367 - acc: 0.8980
+Epoch 120/300
+588/588 [==============================] - 0s 73us/step - loss: 0.2497 - acc: 0.8895
+Epoch 121/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2338 - acc: 0.8997
+Epoch 122/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2417 - acc: 0.8912
+Epoch 123/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2599 - acc: 0.8946
+Epoch 124/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2401 - acc: 0.8912
+Epoch 125/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2421 - acc: 0.8912
+Epoch 126/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2576 - acc: 0.8946
+Epoch 127/300
+588/588 [==============================] - 0s 71us/step - loss: 0.2408 - acc: 0.8997
+Epoch 128/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2358 - acc: 0.8946
+Epoch 129/300
+588/588 [==============================] - 0s 71us/step - loss: 0.2412 - acc: 0.8963
+Epoch 130/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2435 - acc: 0.8912
+Epoch 131/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2401 - acc: 0.8929
+Epoch 132/300
+588/588 [==============================] - 0s 71us/step - loss: 0.2468 - acc: 0.8810
+Epoch 133/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2474 - acc: 0.8912
+Epoch 134/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2416 - acc: 0.8980
+Epoch 135/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2371 - acc: 0.8997
+Epoch 136/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2332 - acc: 0.9031
+Epoch 137/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2386 - acc: 0.9099
+Epoch 138/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2286 - acc: 0.8980
+Epoch 139/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2442 - acc: 0.8997
+Epoch 140/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2425 - acc: 0.8929
+Epoch 141/300
+588/588 [==============================] - 0s 61us/step - loss: 0.2259 - acc: 0.9031
+Epoch 142/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2356 - acc: 0.8997
+Epoch 143/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2424 - acc: 0.8997
+Epoch 144/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2363 - acc: 0.8963
+Epoch 145/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2360 - acc: 0.9099
+Epoch 146/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2375 - acc: 0.8997
+Epoch 147/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2574 - acc: 0.8929
+Epoch 148/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2529 - acc: 0.9082
+Epoch 149/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2290 - acc: 0.8980
+Epoch 150/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2387 - acc: 0.9014
+Epoch 151/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2255 - acc: 0.9031
+Epoch 152/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2281 - acc: 0.9099
+Epoch 153/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2251 - acc: 0.9048
+Epoch 154/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2283 - acc: 0.9014
+Epoch 155/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2301 - acc: 0.8946
+Epoch 156/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2248 - acc: 0.8997
+Epoch 157/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2246 - acc: 0.9048
+Epoch 158/300
+588/588 [==============================] - 0s 61us/step - loss: 0.2216 - acc: 0.9065
+Epoch 159/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2367 - acc: 0.8997
+Epoch 160/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2241 - acc: 0.9065
+Epoch 161/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2443 - acc: 0.8946
+Epoch 162/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2493 - acc: 0.8912
+Epoch 163/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2349 - acc: 0.9031
+Epoch 164/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2246 - acc: 0.9065
+Epoch 165/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2317 - acc: 0.8997
+Epoch 166/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2288 - acc: 0.9031
+Epoch 167/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2394 - acc: 0.8912
+Epoch 168/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2368 - acc: 0.9031
+Epoch 169/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2220 - acc: 0.9082
+Epoch 170/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2187 - acc: 0.9116
+Epoch 171/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2914 - acc: 0.8878
+Epoch 172/300
+588/588 [==============================] - 0s 61us/step - loss: 0.2454 - acc: 0.8946
+Epoch 173/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2279 - acc: 0.9031
+Epoch 174/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2170 - acc: 0.9014
+Epoch 175/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2267 - acc: 0.9082
+Epoch 176/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2183 - acc: 0.9065
+Epoch 177/300
+588/588 [==============================] - 0s 66us/step - loss: 0.5516 - acc: 0.8656
+Epoch 178/300
+588/588 [==============================] - 0s 64us/step - loss: 0.3655 - acc: 0.8639
+Epoch 179/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2614 - acc: 0.8946
+Epoch 180/300
+588/588 [==============================] - 0s 61us/step - loss: 0.2391 - acc: 0.9133
+Epoch 181/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2457 - acc: 0.8929
+Epoch 182/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2259 - acc: 0.9116
+Epoch 183/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2235 - acc: 0.9065
+Epoch 184/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2121 - acc: 0.9065
+Epoch 185/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2316 - acc: 0.9116
+Epoch 186/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2106 - acc: 0.9167
+Epoch 187/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2162 - acc: 0.9150
+Epoch 188/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2164 - acc: 0.9099
+Epoch 189/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2115 - acc: 0.9133
+Epoch 190/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2061 - acc: 0.9082
+Epoch 191/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2072 - acc: 0.9099
+Epoch 192/300
+588/588 [==============================] - 0s 61us/step - loss: 0.2059 - acc: 0.9184
+Epoch 193/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2067 - acc: 0.9167
+Epoch 194/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2135 - acc: 0.9082
+Epoch 195/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2152 - acc: 0.9014
+Epoch 196/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2197 - acc: 0.9065
+Epoch 197/300
+588/588 [==============================] - 0s 61us/step - loss: 0.2104 - acc: 0.9133
+Epoch 198/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2214 - acc: 0.9082
+Epoch 199/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2111 - acc: 0.9065
+Epoch 200/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2057 - acc: 0.9184
+Epoch 201/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2011 - acc: 0.9133
+Epoch 202/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2051 - acc: 0.9082
+Epoch 203/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1973 - acc: 0.9133
+Epoch 204/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2179 - acc: 0.9014
+Epoch 205/300
+588/588 [==============================] - 0s 61us/step - loss: 0.2188 - acc: 0.9014
+Epoch 206/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2078 - acc: 0.9116
+Epoch 207/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2033 - acc: 0.9099
+Epoch 208/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2050 - acc: 0.9099
+Epoch 209/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2051 - acc: 0.9184
+Epoch 210/300
+588/588 [==============================] - 0s 61us/step - loss: 0.2074 - acc: 0.9116
+Epoch 211/300
+588/588 [==============================] - 0s 61us/step - loss: 0.2201 - acc: 0.9082
+Epoch 212/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2097 - acc: 0.9031
+Epoch 213/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2105 - acc: 0.9116
+Epoch 214/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2034 - acc: 0.9099
+Epoch 215/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1958 - acc: 0.9201
+Epoch 216/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2024 - acc: 0.9099
+Epoch 217/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2027 - acc: 0.9048
+Epoch 218/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2045 - acc: 0.9150
+Epoch 219/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1939 - acc: 0.9150
+Epoch 220/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1977 - acc: 0.9150
+Epoch 221/300
+588/588 [==============================] - 0s 64us/step - loss: 0.1961 - acc: 0.9133
+Epoch 222/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2059 - acc: 0.9082
+Epoch 223/300
+588/588 [==============================] - 0s 70us/step - loss: 0.1956 - acc: 0.9167
+Epoch 224/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2046 - acc: 0.9082
+Epoch 225/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1938 - acc: 0.9133
+Epoch 226/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1912 - acc: 0.9167
+Epoch 227/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2212 - acc: 0.9099
+Epoch 228/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2064 - acc: 0.9065
+Epoch 229/300
+588/588 [==============================] - 0s 64us/step - loss: 0.1989 - acc: 0.9150
+Epoch 230/300
+588/588 [==============================] - 0s 64us/step - loss: 0.1945 - acc: 0.9150
+Epoch 231/300
+588/588 [==============================] - 0s 61us/step - loss: 0.1984 - acc: 0.9116
+Epoch 232/300
+588/588 [==============================] - 0s 64us/step - loss: 0.1965 - acc: 0.9218
+Epoch 233/300
+588/588 [==============================] - 0s 64us/step - loss: 0.1994 - acc: 0.9133
+Epoch 234/300
+588/588 [==============================] - 0s 73us/step - loss: 0.2251 - acc: 0.9150
+Epoch 235/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2088 - acc: 0.9014
+Epoch 236/300
+588/588 [==============================] - 0s 70us/step - loss: 0.2290 - acc: 0.9082
+Epoch 237/300
+588/588 [==============================] - 0s 64us/step - loss: 0.1955 - acc: 0.9184
+Epoch 238/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2052 - acc: 0.9082
+Epoch 239/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2086 - acc: 0.9065
+Epoch 240/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2014 - acc: 0.9116
+Epoch 241/300
+588/588 [==============================] - 0s 70us/step - loss: 0.1928 - acc: 0.9184
+Epoch 242/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2129 - acc: 0.9099
+Epoch 243/300
+588/588 [==============================] - 0s 64us/step - loss: 0.1982 - acc: 0.9082
+Epoch 244/300
+588/588 [==============================] - 0s 64us/step - loss: 0.1903 - acc: 0.9167
+Epoch 245/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2117 - acc: 0.9065
+Epoch 246/300
+588/588 [==============================] - 0s 61us/step - loss: 0.2203 - acc: 0.8946
+Epoch 247/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1921 - acc: 0.9133
+Epoch 248/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1921 - acc: 0.9286
+Epoch 249/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1969 - acc: 0.9150
+Epoch 250/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1924 - acc: 0.9150
+Epoch 251/300
+588/588 [==============================] - 0s 66us/step - loss: 0.2057 - acc: 0.9065
+Epoch 252/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2049 - acc: 0.9082
+Epoch 253/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1873 - acc: 0.9218
+Epoch 254/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2152 - acc: 0.9099
+Epoch 255/300
+588/588 [==============================] - 0s 68us/step - loss: 0.1884 - acc: 0.9167
+Epoch 256/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2025 - acc: 0.9235
+Epoch 257/300
+588/588 [==============================] - 0s 66us/step - loss: 0.1830 - acc: 0.9218
+Epoch 258/300
+588/588 [==============================] - 0s 66us/step - loss: 0.1815 - acc: 0.9252
+Epoch 259/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1795 - acc: 0.9218
+Epoch 260/300
+588/588 [==============================] - 0s 66us/step - loss: 0.1814 - acc: 0.9252
+Epoch 261/300
+588/588 [==============================] - 0s 64us/step - loss: 0.1839 - acc: 0.9201
+Epoch 262/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1871 - acc: 0.9167
+Epoch 263/300
+588/588 [==============================] - 0s 64us/step - loss: 0.3406 - acc: 0.8878
+Epoch 264/300
+588/588 [==============================] - 0s 63us/step - loss: 0.3782 - acc: 0.8401
+Epoch 265/300
+588/588 [==============================] - 0s 61us/step - loss: 0.2715 - acc: 0.8639
+Epoch 266/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2522 - acc: 0.8759
+Epoch 267/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2406 - acc: 0.8861
+Epoch 268/300
+588/588 [==============================] - 0s 59us/step - loss: 0.2260 - acc: 0.8980
+Epoch 269/300
+588/588 [==============================] - 0s 61us/step - loss: 0.2194 - acc: 0.9099
+Epoch 270/300
+588/588 [==============================] - 0s 61us/step - loss: 0.2061 - acc: 0.9150
+Epoch 271/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2061 - acc: 0.9218
+Epoch 272/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2074 - acc: 0.9167
+Epoch 273/300
+588/588 [==============================] - 0s 64us/step - loss: 0.2182 - acc: 0.9167
+Epoch 274/300
+588/588 [==============================] - 0s 68us/step - loss: 0.2099 - acc: 0.9252
+Epoch 275/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2030 - acc: 0.9201
+Epoch 276/300
+588/588 [==============================] - 0s 63us/step - loss: 0.2006 - acc: 0.9133
+Epoch 277/300
+588/588 [==============================] - 0s 66us/step - loss: 0.1868 - acc: 0.9235
+Epoch 278/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1938 - acc: 0.9218
+Epoch 279/300
+588/588 [==============================] - 0s 66us/step - loss: 0.1827 - acc: 0.9184
+Epoch 280/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1900 - acc: 0.9218
+Epoch 281/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1847 - acc: 0.9252
+Epoch 282/300
+588/588 [==============================] - 0s 64us/step - loss: 0.1784 - acc: 0.9269
+Epoch 283/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1813 - acc: 0.9218
+Epoch 284/300
+588/588 [==============================] - 0s 64us/step - loss: 0.1795 - acc: 0.9269
+Epoch 285/300
+588/588 [==============================] - 0s 66us/step - loss: 0.1755 - acc: 0.9235
+Epoch 286/300
+588/588 [==============================] - 0s 66us/step - loss: 0.1741 - acc: 0.9184
+Epoch 287/300
+588/588 [==============================] - 0s 68us/step - loss: 0.1836 - acc: 0.9235
+Epoch 288/300
+588/588 [==============================] - 0s 64us/step - loss: 0.1945 - acc: 0.9303
+Epoch 289/300
+588/588 [==============================] - 0s 64us/step - loss: 0.1682 - acc: 0.9320
+Epoch 290/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1741 - acc: 0.9235
+Epoch 291/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1951 - acc: 0.9201
+Epoch 292/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1796 - acc: 0.9354
+Epoch 293/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1850 - acc: 0.9218
+Epoch 294/300
+588/588 [==============================] - 0s 61us/step - loss: 0.1797 - acc: 0.9303
+Epoch 295/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1714 - acc: 0.9269
+Epoch 296/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1653 - acc: 0.9303
+Epoch 297/300
+588/588 [==============================] - 0s 63us/step - loss: 0.1786 - acc: 0.9201
+Epoch 298/300
+588/588 [==============================] - 0s 64us/step - loss: 0.1749 - acc: 0.9371
+Epoch 299/300
+588/588 [==============================] - 0s 64us/step - loss: 0.1696 - acc: 0.9337
+Epoch 300/300
+588/588 [==============================] - 0s 68us/step - loss: 0.1634 - acc: 0.9320
+65/65 [==============================] - 0s 460us/step
+acc: 92.31\%
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}     print(precision\PYZus{}recall\PYZus{}fscore\PYZus{}support(y\PYZus{}test.values, predicted, average=\PYZsq{}macro\PYZsq{}))}
+         
+             
+         \PY{c+c1}{\PYZsh{}     print(\PYZdq{}predicted:\PYZdq{}, predicted)    }
+         \PY{c+c1}{\PYZsh{}     print(\PYZdq{}y\PYZus{}test :\PYZdq{}, y\PYZus{}test.values)}
+         \PY{c+c1}{\PYZsh{}     print(\PYZdq{}Random Forest Classifier Accuracy:\PYZdq{}, forest.score(x\PYZus{}test, y\PYZus{}test))}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{}     TP = confusion\PYZus{}matrix(y\PYZus{}test.values, predicted)[1][1]}
+         \PY{c+c1}{\PYZsh{}     TN = confusion\PYZus{}matrix(y\PYZus{}test.values, predicted)[0][0]}
+         \PY{c+c1}{\PYZsh{}     FP = confusion\PYZus{}matrix(y\PYZus{}test.values, predicted)[0][1]}
+         \PY{c+c1}{\PYZsh{}     FN = confusion\PYZus{}matrix(y\PYZus{}test.values, predicted)[1][0]    }
+\end{Verbatim}
+
+
+    \hypertarget{uxc815uxb9acuxb41c-uxd559uxc2b5uxbaa8uxb378uxc758-uxd3c9uxac00-uxacb0uxacfcuxb97c-uxbe44uxad50-uxbd84uxc11duxd558uxc5ec-uxadf8-uxc774uxc720uxb97c-uxc124uxba85uxd55cuxb2e4.-30-points}{%
+\subsection{4. 정리된 학습모델의 평가 결과를 비교 분석하여 그 이유를
+설명한다. (30
+points)}\label{uxc815uxb9acuxb41c-uxd559uxc2b5uxbaa8uxb378uxc758-uxd3c9uxac00-uxacb0uxacfcuxb97c-uxbe44uxad50-uxbd84uxc11duxd558uxc5ec-uxadf8-uxc774uxc720uxb97c-uxc124uxba85uxd55cuxb2e4.-30-points}}
+
+    \hypertarget{uxc774uxbc88-uxacfcuxc81cuxc5d0-uxc0acuxc6a9uxb41c-uxd559uxc2b5uxbaa8uxb378-uxbc0f-uxc18cuxc2a4uxc5d0-uxb300uxd55c-uxcc38uxace0uxbb38uxd5ccuxc744-uxc815uxb9acuxd55cuxb2e4.-10-points}{%
+\subsection{5. 이번 과제에 사용된 학습모델 및 소스에 대한 참고문헌을
+정리한다. (10
+points)}\label{uxc774uxbc88-uxacfcuxc81cuxc5d0-uxc0acuxc6a9uxb41c-uxd559uxc2b5uxbaa8uxb378-uxbc0f-uxc18cuxc2a4uxc5d0-uxb300uxd55c-uxcc38uxace0uxbb38uxd5ccuxc744-uxc815uxb9acuxd55cuxb2e4.-10-points}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{} df.fillna(df.mean())}
+         \PY{c+c1}{\PYZsh{} float\PYZus{}lists = list(df.select\PYZus{}dtypes(include=[\PYZsq{}float64\PYZsq{}]).columns)}
+         \PY{c+c1}{\PYZsh{} for float\PYZus{}list in float\PYZus{}lists:}
+         \PY{c+c1}{\PYZsh{}     df.loc[pd.isnull(df[float\PYZus{}list])] = df[float\PYZus{}list].mean()}
+\end{Verbatim}
+
+
+    one hot encoding
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} http://queirozf.com/entries/one\PYZhy{}hot\PYZhy{}encoding\PYZhy{}a\PYZhy{}feature\PYZhy{}on\PYZhy{}a\PYZhy{}pandas\PYZhy{}dataframe\PYZhy{}an\PYZhy{}example}
+\end{Verbatim}
+
+
+    데이터 사이트
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}http://archive.ics.uci.edu/ml/datasets/Credit+Approval}
+\end{Verbatim}
+
+
+    데이터사이언스 컴페티션 내용 참고할 것
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{webUrl} \PY{o}{=} \PY{n}{urllib}\PY{o}{.}\PY{n}{request}\PY{o}{.}\PY{n}{urlopen}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://archive.ics.uci.edu/ml/machine\PYZhy{}learning\PYZhy{}databases/credit\PYZhy{}screening/crx.data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{data} \PY{o}{=} \PY{n}{webUrl}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+        \PY{n}{data}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
